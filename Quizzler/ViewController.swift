@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class ViewController: UIViewController {
     
     let allQuestions = QuestionBank()
@@ -76,12 +77,12 @@ class ViewController: UIViewController {
     func checkAnswer() {
         let correctAnswer = allQuestions.list[questionNumber].answer
         if correctAnswer == pickedAnswer {
-            print("You got it right")
+            ProgressHUD.showSuccess("Correct")
             score += 1
             
             
         } else {
-            print("You got it wrong!")
+            ProgressHUD.showError("Wrong!")
         }
     }
     
