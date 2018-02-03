@@ -14,8 +14,6 @@ class ViewController: UIViewController {
     var pickedAnswer : Bool = false
     var questionNumber : Int = 0
     
-    //Place your instance variables here
-    
     
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
@@ -28,8 +26,8 @@ class ViewController: UIViewController {
         questionLabel.text = firstQuestion.questionText
         
     }
-
-
+    
+    
     @IBAction func answerPressed(_ sender: AnyObject) {
         // answer button onClick
         if sender.tag == 1 {
@@ -37,21 +35,35 @@ class ViewController: UIViewController {
         } else if sender.tag == 2 {
             pickedAnswer = false
         }
-        
         checkAnswer()
         questionNumber += 1
-        questionLabel.text = allQuestions.list[questionNumber].questionText
+        nextQuestion()
         
     }
     
     
     func updateUI() {
-      
+        
     }
     
-
+    
     func nextQuestion() {
-        
+        // how to fix exceeded index
+        if questionNumber <= 12 {
+            questionLabel.text = allQuestions.list[questionNumber].questionText
+        } else {
+            // How to create alert
+            // alert message
+            let alert = UIAlertController(title: "Awesome", message: "You have finished all the questions, do you want to start over?", preferredStyle: .alert)
+            // alert action, when we click the button
+            let restartAction = UIAlertAction(title: "Restart", style: .default, handler: { (UIAlertAction) in
+                self.startOver()
+            })
+            
+            alert.addAction(restartAction)
+            present(alert, animated: true, completion: nil)
+            
+        }
     }
     
     
@@ -66,9 +78,10 @@ class ViewController: UIViewController {
     
     
     func startOver() {
-       
+        questionNumber = 0
+        nextQuestion()
     }
     
-
+    
     
 }
