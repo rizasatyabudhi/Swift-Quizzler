@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     let allQuestions = QuestionBank()
     var pickedAnswer : Bool = false
     var questionNumber : Int = 0
+    var score : Int = 0
     
     
     @IBOutlet weak var questionLabel: UILabel!
@@ -22,8 +23,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let firstQuestion = allQuestions.list[0]
-        questionLabel.text = firstQuestion.questionText
+        // first question
+        nextQuestion()
         
     }
     
@@ -43,6 +44,10 @@ class ViewController: UIViewController {
     
     
     func updateUI() {
+        // confert score (int -> string)
+        scoreLabel.text = "Score \(score)"
+        progressLabel.text = "\(questionNumber + 1) / 13"
+        progressBar.frame.size.width = (view.frame.size.width / 13) * CGFloat(questionNumber + 1)
         
     }
     
@@ -51,6 +56,7 @@ class ViewController: UIViewController {
         // how to fix exceeded index
         if questionNumber <= 12 {
             questionLabel.text = allQuestions.list[questionNumber].questionText
+            updateUI()
         } else {
             // How to create alert
             // alert message
@@ -71,6 +77,9 @@ class ViewController: UIViewController {
         let correctAnswer = allQuestions.list[questionNumber].answer
         if correctAnswer == pickedAnswer {
             print("You got it right")
+            score += 1
+            
+            
         } else {
             print("You got it wrong!")
         }
@@ -79,6 +88,7 @@ class ViewController: UIViewController {
     
     func startOver() {
         questionNumber = 0
+        score = 0
         nextQuestion()
     }
     
